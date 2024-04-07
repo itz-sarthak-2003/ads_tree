@@ -14,8 +14,27 @@ public:
     void insert(Employee *&root, Employee *next);
     void display_inorder(Employee *root);
     void find_employee(Employee *root, string x);
+    void find_min(Employee* root);
+    void find_max(Employee* root);
 } *root = nullptr;
 
+
+void Employee::find_min(Employee* root)
+{
+    while(root->left!=NULL)
+    {
+        root=root->left;
+    }
+   cout<<"\nMin salary of a employee:  "<<root->salary;
+}
+void Employee::find_max(Employee* root)
+{
+    while(root->right!=NULL)
+    {
+        root=root->right;
+    }
+    cout<<"\nMax salary of an Employee:  "<<root->salary;
+}
 void Employee::accept()
 {
     Employee *next = new Employee();
@@ -26,6 +45,7 @@ void Employee::accept()
     next->right = nullptr;
     insert(root, next);
 }
+
 
 void Employee::insert(Employee *&root, Employee *next)
 {
@@ -64,6 +84,9 @@ void Employee::find_employee(Employee *root, string x)
     if (root->name == x)
     {
         cout << "Employee found: " << root->name << ", Salary: " << root->salary << endl;
+         cout << "\nName\tAge\tGender\tDOB\tSalary" << endl;
+         cout << "\n" << root->name << "\t" << root->age << "\t" << root->gender << "\t" << root->bdate << "\t" << root->salary << endl;
+
     }
     else if (x < root->name)
     {
@@ -86,7 +109,9 @@ int main()
         cout << "1. Add an employee" << endl;
         cout << "2. Display employees (in order)" << endl;
         cout << "3. Find an employee" << endl;
-        cout << "4. Exit" << endl;
+        cout << "4. Find min salary employee" << endl;
+        cout << "5. Find max salary employee" << endl;
+        cout << "6. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> ch;
         switch (ch)
@@ -104,11 +129,18 @@ int main()
             emp.find_employee(root, x);
             break;
         case 4:
-            cout << "Thank you for using the Employee Management System." << endl;
+           emp.find_min(root);
+            break;
+            case 5:
+            emp.find_max(root);
+            break;
+            case 6:
+             cout << "Thank you for using the Employee Management System." << endl;
             exit(0);
+            break;
         default:
             cout << "Wrong choice" << endl;
         }
-    } while (ch != 4);
+    } while (ch != 6);
     return 0;
 }
